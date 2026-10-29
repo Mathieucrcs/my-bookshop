@@ -1,0 +1,33 @@
+<section class="panneau">
+  <header class="panneau-entete">
+    <div>
+      <p class="surtitre">TP Observables</p>
+      <h2>Sonde thermique</h2>
+    </div>
+    <span class="statut" [attr.data-statut]="status">{{ status }}</span>
+  </header>
+
+  <div class="mesure">
+    <p class="valeur">
+      @if (temperature !== null) {
+        {{ temperature | number: '1.1-1' }} <span>°C</span>
+      } @else {
+        --,- <span>°C</span>
+      }
+    </p>
+    <div class="jauge" aria-hidden="true">
+      <div class="jauge-remplissage" [style.width.%]="((temperature ?? 0) / 60) * 100"></div>
+      <div class="jauge-seuil" [style.left.%]="(seuil / 60) * 100"></div>
+    </div>
+    <p class="legende">Relevé {{ releves }} / {{ nbReleves }} · seuil critique {{ seuil }} °C</p>
+  </div>
+
+  @if (errorMessage) {
+    <p class="alerte">⚠ {{ errorMessage }}</p>
+  }
+
+  <div class="actions">
+    <button class="btn btn-primaire" (click)="start()" [disabled]="isRunning">Démarrer</button>
+    <button class="btn btn-danger" (click)="stop()" [disabled]="!isRunning">Arrêter l'urgence</button>
+  </div>
+</section>

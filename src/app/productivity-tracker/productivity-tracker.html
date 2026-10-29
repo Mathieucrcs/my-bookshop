@@ -1,0 +1,20 @@
+<section class="tracker">
+  <p class="surtitre">TP Signals</p>
+  <h2>Tracker de productivité</h2>
+
+  <div class="progression">
+    <span class="pourcentage">{{ progressPercentage() }}<small>%</small></span>
+    <span class="compteur">{{ completedTasks() }} / {{ dailyGoal }} tâches</span>
+  </div>
+
+  <div class="barre" role="progressbar" [attr.aria-valuenow]="progressPercentage()" aria-valuemin="0" aria-valuemax="100">
+    <div class="barre-remplissage" [class.complete]="isGoalReached()" [style.width.%]="progressPercentage()"></div>
+  </div>
+
+  <p class="message">{{ message() }}</p>
+
+  <div class="actions">
+    <button class="btn btn-primaire" (click)="addTask()" [disabled]="isGoalReached()">+1 Tâche complétée</button>
+    <button class="btn btn-secondaire" (click)="reset()">Réinitialiser</button>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+/* Styles globaux */
+:root {
+  --ink: #2b2118;
+  --paper: #f5efe6;
+  --accent: #b5562b;
+  --muted: #6f6357;
+  --serif: Georgia, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}

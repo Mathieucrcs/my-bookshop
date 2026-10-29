@@ -1,0 +1,35 @@
+<section class="panneau">
+  <header class="panneau-entete">
+    <div>
+      <p class="surtitre">TP AsyncPipe</p>
+      <h2>Sonde thermique (réactive)</h2>
+    </div>
+    <span class="statut" [attr.data-statut]="status()">{{ status() }}</span>
+  </header>
+
+  <div class="mesure">
+    <!-- 4. L'AsyncPipe s'abonne, affiche et se désabonne tout seul -->
+    @if (sensorData$ | async; as temp) {
+      <p class="valeur">{{ temp | number: '1.1-1' }} <span>°C</span></p>
+      <div class="jauge" aria-hidden="true">
+        <div class="jauge-remplissage" [style.width.%]="(temp / 60) * 100"></div>
+        <div class="jauge-seuil" [style.left.%]="(seuil / 60) * 100"></div>
+      </div>
+    } @else {
+      <p class="valeur">--,- <span>°C</span></p>
+      <div class="jauge" aria-hidden="true">
+        <div class="jauge-seuil" [style.left.%]="(seuil / 60) * 100"></div>
+      </div>
+    }
+    <p class="legende">Seuil critique {{ seuil }} °C · aucun markForCheck() dans ce composant</p>
+  </div>
+
+  @if (errorMessage()) {
+    <p class="alerte">⚠ {{ errorMessage() }}</p>
+  }
+
+  <div class="actions">
+    <button class="btn btn-primaire" (click)="startSensor()" [disabled]="status() === 'Connecté'">Démarrer</button>
+    <button class="btn btn-danger" (click)="stopSensor()" [disabled]="status() !== 'Connecté'">Arrêter l'urgence</button>
+  </div>
+</section>

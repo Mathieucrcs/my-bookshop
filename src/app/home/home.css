@@ -1,0 +1,82 @@
+.hero {
+  max-width: 640px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.surtitre {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0.75rem 0 1rem;
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.intro {
+  margin: 0 0 2rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.cta {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+}
+
+.tps {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tps h3 {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+}
+
+.tps-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.tp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid #e4dbcd;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.tp:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.tp span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}

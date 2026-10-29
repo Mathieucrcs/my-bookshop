@@ -1,0 +1,67 @@
+<div class="entete">
+  <h2 class="titre-page">Catalogue</h2>
+
+  <!-- TP2 - Étape 3 : filtre (Event Binding sur change) -->
+  <label class="filtre">
+    Afficher :
+    <select (change)="filterStock = $any($event.target).value">
+      <option value="all">Tout</option>
+      <option value="inStock">En stock</option>
+      <option value="outOfStock">En rupture</option>
+    </select>
+  </label>
+</div>
+
+<div class="grille">
+  @for (book of getFilteredBooks(); track book.title) {
+    <!-- TP2 - Étape 1 : classe CSS conditionnelle -->
+    <div class="carte" [class.out-of-stock]="!isInStock(book)">
+      <img
+        class="couverture"
+        [src]="book.image"
+        [alt]="'Couverture de ' + book.title"
+        (error)="onImageError($event, book)"
+      >
+
+      <div class="infos">
+        <h3 class="titre">{{ book.title }}</h3>
+        <p class="auteur">{{ book.author }}</p>
+
+        <div class="ligne">
+          <span class="prix">{{ book.price | currency: 'EUR' }}</span>
+
+          @if (isInStock(book)) {
+            <span class="badge badge-vert">En stock</span>
+          } @else {
+            <span class="badge badge-rouge">Rupture</span>
+          }
+        </div>
+
+        <!-- TP2 - Étape 1 : détails affichés seulement si showDetails est vrai -->
+        @if (book.showDetails) {
+          <p class="details">ID interne : {{ book.id }}</p>
+        }
+
+        <!-- TP2 - Étape 2 : contrôle du stock -->
+        <div class="stock">
+          <button class="btn-stock" (click)="decrementStock(book)" [disabled]="book.quantity === 0" aria-label="Retirer un exemplaire">−</button>
+          <span class="quantite">{{ book.quantity }}</span>
+          <button class="btn-stock" (click)="incrementStock(book)" aria-label="Ajouter un exemplaire">+</button>
+        </div>
+
+        <button class="btn-details" (click)="toggleDetails(book)">
+          {{ book.showDetails ? 'Masquer les détails' : 'Afficher les détails' }}
+        </button>
+
+        <!-- TP2 - Étape 2 : bouton Acheter visible ET cliquable seulement si quantity > 0 -->
+        @if (book.quantity > 0) {
+          <button class="acheter" (click)="buyBook(book)" [disabled]="book.quantity <= 0">
+            Acheter
+          </button>
+        }
+      </div>
+    </div>
+  } @empty {
+    <p class="vide">Aucun livre ne correspond à ce filtre.</p>
+  }
+</div>
